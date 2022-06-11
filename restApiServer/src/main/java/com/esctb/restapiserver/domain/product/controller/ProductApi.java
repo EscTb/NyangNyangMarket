@@ -3,6 +3,7 @@ package com.esctb.restapiserver.domain.product.controller;
 import com.esctb.restapiserver.domain.product.dto.CreateProductResponse;
 import com.esctb.restapiserver.domain.product.dto.ProductCreateRequest;
 import com.esctb.restapiserver.domain.product.dto.ProductDto;
+import com.esctb.restapiserver.domain.product.dto.ProductUpdateRequestDto;
 import com.esctb.restapiserver.domain.product.entity.Product;
 import com.esctb.restapiserver.domain.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -27,15 +28,7 @@ public class ProductApi {
      */
     @PostMapping("products")
     public CreateProductResponse createProduct(@RequestBody @Valid ProductCreateRequest productRequest) {
-        Product product = productService.addProduct(productRequest);
-        CreateProductResponse response = CreateProductResponse.builder()
-                .price(product.getPrice())
-                .content(product.getContent())
-                .interestCount(product.getInterestCount())
-                .status(product.getStatus())
-                .title(product.getTitle())
-                .viewCount(product.getViewCount())
-                .build();
+        CreateProductResponse response = productService.addProduct(productRequest);
         return response;
     }
 
@@ -44,18 +37,8 @@ public class ProductApi {
      */
     @GetMapping("products")
     public List<ProductDto> readProducts() {
-        List<Product> productList = productService.findAllProducts();
-        List<ProductDto> result = productList.stream()
-                .map(p -> ProductDto.builder()
-                        .price(p.getPrice())
-                        .content(p.getContent())
-                        .interestCount(p.getInterestCount())
-                        .status(p.getStatus())
-                        .title(p.getTitle())
-                        .viewCount(p.getViewCount())
-                        .build())
-                .collect(Collectors.toList());
-        return result;
+        List<ProductDto> productList = productService.findAllProducts();
+        return productList;
     }
 
     /**
@@ -63,20 +46,7 @@ public class ProductApi {
      */
     @GetMapping("products/{productId}")
     public ProductDto readProduct(@PathVariable Long productId) {
-        Optional<Product> p = productService.findByProductId(productId);
-        if (p != null) {
-            ProductDto result = ProductDto.builder()
-                    .price(p.get().getPrice())
-                    .content(p.get().getContent())
-                    .interestCount(p.get().getInterestCount())
-                    .status(p.get().getStatus())
-                    .title(p.get().getTitle())
-                    .viewCount(p.get().getViewCount())
-                    .build();
-            return result;
-        } else {
-            return null; // TODO throw ProductNotFoundException
-        }
+        return productService.findDetailProductByProductId(productId);
     }
 
     /**
@@ -90,12 +60,9 @@ public class ProductApi {
     /**
      * 매물 수정
      */
-    @PatchMapping("products/{productId}")
-    public ProductDto patchProduct(@PathVariable Long productId,
-                             @RequestParam String column,
-                             @RequestParam String tobe) {
-
-        return productService.patchProduct(productId, column, tobe);
-
+    @PostMapping("products/{productId}")
+    public ProductDto updateProduct(@PathVariable Long productId,
+                                    @RequestBody @Valid ProductUpdateRequestDto productUpdateRequestDto) {
+        return productService.patchProduct(productId, productUpdateRequestDto);
     }
 }
