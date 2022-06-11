@@ -1,4 +1,4 @@
-package com.esctb.restapiserver.user.entity;
+package com.esctb.restapiserver.domain.user.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,15 +10,11 @@ import javax.persistence.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="user_image")
-public class UserImage {
-
+public class Area {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="user_image_id")
+    @Column(name="area_id")
     private Long id;
 
-    @Column(name = "image_path")
-    private String imagePath;
-
-    //private String userId;
+    @Column(name = "area_name")
+    private String areaName;
 }

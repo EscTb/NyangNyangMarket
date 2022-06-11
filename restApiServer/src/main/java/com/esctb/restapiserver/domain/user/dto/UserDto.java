@@ -1,4 +1,4 @@
-package com.esctb.restapiserver.user.dto;
+package com.esctb.restapiserver.domain.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

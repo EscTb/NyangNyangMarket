@@ -1,4 +1,4 @@
-package com.esctb.restapiserver.user.entity;
+package com.esctb.restapiserver.domain.user.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,12 +10,12 @@ import javax.persistence.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="sales_history")
-public class SalesHistory {
+@Table(name="purchase_history")
+public class PurchaseHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="sales_history_id")
+    @Column(name="purchase_history_id")
     private Long id;
 
     @Column(name = "product_id")

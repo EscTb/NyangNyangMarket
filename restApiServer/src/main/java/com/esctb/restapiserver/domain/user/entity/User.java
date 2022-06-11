@@ -1,12 +1,11 @@
-package com.esctb.restapiserver.user.entity;
+package com.esctb.restapiserver.domain.user.entity;
 
-import com.esctb.restapiserver.user.entity.enums.SuedYn;
+import com.esctb.restapiserver.domain.user.entity.enums.SuedYn;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 
 @Entity
 @Getter

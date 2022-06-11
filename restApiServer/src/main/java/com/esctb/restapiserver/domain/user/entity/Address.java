@@ -1,4 +1,4 @@
-package com.esctb.restapiserver.user.entity;
+package com.esctb.restapiserver.domain.user.entity;
 
 import lombok.Getter;
 
