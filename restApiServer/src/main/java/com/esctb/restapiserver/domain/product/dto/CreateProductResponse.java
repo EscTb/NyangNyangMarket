@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class CreateProductResponse {
+    private Long id;
     private String title;
     private int price;
     private String content;
