@@ -3,18 +3,18 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://127.0.0.1:3306/market
     username: root
-    password: '0000'
+    password: root
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
   jpa:
     database: mysql
     show-sql: true
+    hibernate:
+      ddl-auto: create
 
----
-
-spring:
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
 
 server:
   error:
