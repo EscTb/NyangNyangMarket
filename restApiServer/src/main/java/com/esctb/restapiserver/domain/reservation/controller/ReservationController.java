@@ -18,7 +18,7 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @GetMapping()
-    private Reservation getReservation(Long id){
+    public Reservation getReservation(Long id){
         return reservationService.getReservation(id);
     }
 
