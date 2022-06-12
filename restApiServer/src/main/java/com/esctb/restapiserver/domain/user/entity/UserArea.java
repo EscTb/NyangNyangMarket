@@ -19,6 +19,12 @@ public class UserArea {
     @Column(name = "user_area_id")
     private Long id;
 
+    @Column(name = "user_id")
+    private Long userId;
+
+    @Column(name = "area_id")
+    private Long areaId;
+
     //private List<User> userList = new ArrayList<>();
     //private List<Area> areaList = new ArrayList<>();
 }

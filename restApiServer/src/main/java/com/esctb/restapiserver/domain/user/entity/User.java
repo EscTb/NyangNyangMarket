@@ -1,9 +1,7 @@
 package com.esctb.restapiserver.domain.user.entity;
 
 import com.esctb.restapiserver.domain.user.entity.enums.SuedYn;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,6 +9,7 @@ import javax.persistence.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 @Table(name="users")
 public class User {
 
