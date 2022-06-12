@@ -1,12 +1,14 @@
 package com.esctb.restapiserver.domain.product.dto;
 
+import com.esctb.restapiserver.domain.model.ProductStatusConverter;
 import com.esctb.restapiserver.domain.product.entity.Product;
-import com.esctb.restapiserver.domain.product.entity.ProductStatus;
+import com.esctb.restapiserver.domain.model.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Convert;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
@@ -28,7 +30,8 @@ public class ProductUpdateRequestDto {
     private int viewCount;
     @NotNull
     private int interestCount;
-    @Enumerated(EnumType.STRING)
+
+    @Convert(converter = ProductStatusConverter.class)
     @NotNull
     private ProductStatus status;
 
