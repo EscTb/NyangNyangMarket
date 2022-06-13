@@ -1,12 +1,13 @@
 package com.esctb.restapiserver.domain.product.entity;
 
+import com.esctb.restapiserver.domain.model.BaseTimeEntity;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @Entity
-public class ProductImage {
+public class ProductImage extends BaseTimeEntity {
     @Id
     @GeneratedValue
     @Column(name = "product_image_id")
