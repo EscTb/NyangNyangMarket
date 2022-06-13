@@ -23,7 +23,6 @@ public class NyangServiceImpl implements NyangService{
 
     @Override
     public Nyang getNyang(Long id) {
-        Nyang nyang=nyangRepository.findById(id).orElse(null);
         return nyangRepository.findById(id).orElse(null);
     }
 }
