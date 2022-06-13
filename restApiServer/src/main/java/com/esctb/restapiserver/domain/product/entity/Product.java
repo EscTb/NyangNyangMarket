@@ -1,5 +1,6 @@
 package com.esctb.restapiserver.domain.product.entity;
 
+import com.esctb.restapiserver.domain.model.BaseTimeEntity;
 import com.esctb.restapiserver.domain.model.ProductStatus;
 import com.esctb.restapiserver.domain.model.ProductStatusConverter;
 import lombok.AllArgsConstructor;
@@ -17,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 //@NoArgsConstructor(access = AccessLevel.PROTECTED) // 직접 생성 막기
 @Entity
-public class Product {
+public class Product extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")
     @Column(name = "product_id")
