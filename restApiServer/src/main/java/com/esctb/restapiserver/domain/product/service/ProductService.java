@@ -1,11 +1,8 @@
 package com.esctb.restapiserver.domain.product.service;
 
-import com.esctb.restapiserver.domain.product.dto.CreateProductResponse;
-import com.esctb.restapiserver.domain.product.dto.ProductCreateRequest;
-import com.esctb.restapiserver.domain.product.dto.ProductDto;
-import com.esctb.restapiserver.domain.product.dto.ProductUpdateRequestDto;
+import com.esctb.restapiserver.domain.product.dto.*;
 import com.esctb.restapiserver.domain.product.entity.Product;
-import com.esctb.restapiserver.domain.product.entity.ProductStatus;
+import com.esctb.restapiserver.domain.model.ProductStatus;
 import com.esctb.restapiserver.domain.product.repository.ProductRepository;
 import com.esctb.restapiserver.global.error.exception.CustomException;
 import lombok.RequiredArgsConstructor;
@@ -46,11 +43,12 @@ public class ProductService {
         return productRepository.findById(productId);
     }
 
-    public ProductDto findDetailProductByProductId(Long productId) {
+    public ProductDetailDto findDetailProductByProductId(Long productId) {
         Optional<Product> p = productRepository.findById(productId);
+
         if (p.isPresent()) {
             Product product = p.get();
-            ProductDto result = ProductDto.builder()
+            ProductDetailDto result = ProductDetailDto.builder()
                     .id(product.getId())
                     .price(product.getPrice())
                     .content(product.getContent())
@@ -58,12 +56,16 @@ public class ProductService {
                     .status(product.getStatus())
                     .title(product.getTitle())
                     .viewCount(product.getViewCount())
+                    .productImages(product.getProductImages())
                     .build();
 
             return result;
-        } else {
+        }
+
+        else {
             throw new CustomException(PRODUCT_NOT_FOUND);
         }
+//        p.orElseThrow(() -> new CustomException(PRODUCT_NOT_FOUND));
     }
 
     public CreateProductResponse addProduct(ProductCreateRequest request) {
@@ -72,11 +74,14 @@ public class ProductService {
                 .title(request.getTitle())
                 .content(request.getContent())
                 .interestCount(0)
+                .productImages(request.getProductImages())
                 .viewCount(0)
                 .refreshDate(LocalDateTime.now())
                 .status(ProductStatus.SALE)
                 .build();
+
         Product product = productRepository.save(newProduct);
+
         CreateProductResponse response = CreateProductResponse.builder()
                 .id(product.getId())
                 .price(product.getPrice())
@@ -84,6 +89,7 @@ public class ProductService {
                 .interestCount(product.getInterestCount())
                 .status(product.getStatus())
                 .title(product.getTitle())
+                .productImages(product.getProductImages())
                 .viewCount(product.getViewCount())
                 .build();
         return response;
@@ -91,18 +97,14 @@ public class ProductService {
 
     public void deleteProduct(Long productId) {
         Optional<Product> byProductId = this.findByProductId(productId);
-
-        if (byProductId.isPresent()) {
-            productRepository.delete(byProductId.get());
-        } else {
-            throw new CustomException(PRODUCT_NOT_FOUND);
-        }
+        byProductId.ifPresent(x->{productRepository.delete(x);});
+        byProductId.orElseThrow(()->new CustomException(PRODUCT_NOT_FOUND));
     }
 
-    public ProductDto patchProduct(Long productId, ProductUpdateRequestDto productUpdateRequestDto) {
+    public ProductDto updateProduct(Long productId, ProductUpdateRequestDto productUpdateRequestDto) {
         Optional<Product> productById = productRepository.findById(productId);
-        if (productById.isPresent()){
-            Product newProduct = ProductUpdateRequestDto.toEntity(productId,productUpdateRequestDto);
+        if (productById.isPresent()) {
+            Product newProduct = ProductUpdateRequestDto.toEntity(productId, productUpdateRequestDto);
             Product saved = productRepository.save(newProduct);
             return ProductDto.builder()
                     .id(productId)
@@ -114,7 +116,7 @@ public class ProductService {
                     .price(saved.getPrice())
                     .content(saved.getContent())
                     .build();
-        }else{
+        } else {
             throw new CustomException(PRODUCT_NOT_FOUND);
         }
 
