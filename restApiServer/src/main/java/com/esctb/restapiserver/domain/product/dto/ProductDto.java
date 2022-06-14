@@ -4,15 +4,19 @@ import com.esctb.restapiserver.domain.model.ProductStatus;
 import com.esctb.restapiserver.domain.model.ProductStatusConverter;
 import com.esctb.restapiserver.domain.product.entity.Product;
 import com.esctb.restapiserver.domain.product.entity.ProductImage;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Convert;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class ProductDtoTest {
+public class ProductDto {
 
     @NoArgsConstructor
     @Builder
@@ -30,7 +34,7 @@ public class ProductDtoTest {
         private ProductStatus status;
         private List<ProductImage> productImages = new ArrayList<>();
 
-        public Detail toDto(Product product){
+        public Detail toDto(Product product) {
             return Detail.builder()
                     .id(product.getId())
                     .price(product.getPrice())
@@ -86,11 +90,16 @@ public class ProductDtoTest {
     @AllArgsConstructor
     @Getter
     public static class CreateRequest {
+        @NotNull
         private String title;
+        @NotNull
         private int price;
         //private String areaId;
+        @NotNull
         private String content;
+        @NotNull
         private List<ProductImage> productImages = new ArrayList<>();
+
         public static Product toEntity(CreateRequest request) {
             return Product.builder()
                     .price(request.getPrice())
@@ -119,9 +128,15 @@ public class ProductDtoTest {
         private int interestCount;
         @Convert(converter = ProductStatusConverter.class)
         private ProductStatus status;
-        private List<ProductImage> productImages = new ArrayList<>();
+        private List<ProductImageDto> productImages = new ArrayList<>();
 
         public static CreateResponse toEntity(Product product) {
+
+            List<ProductImageDto> productImages = product.getProductImages()
+                    .stream()
+                    .map(productImage -> ProductImageDto.builder().build().toEntity(productImage))
+                    .collect(Collectors.toList());
+
             return CreateResponse.builder()
                     .id(product.getId())
                     .price(product.getPrice())
@@ -129,8 +144,27 @@ public class ProductDtoTest {
                     .interestCount(product.getInterestCount())
                     .status(product.getStatus())
                     .title(product.getTitle())
-                    .productImages(product.getProductImages())
+                    .productImages(productImages)
                     .viewCount(product.getViewCount())
+                    .build();
+        }
+    }
+
+
+    @NoArgsConstructor
+    @Builder
+    @AllArgsConstructor
+    @Getter
+    public static class ProductImageDto {
+        private Long id;
+        private String imageName;
+        private String imagePath;
+
+        public static ProductImageDto toEntity(ProductImage product) {
+            return ProductImageDto.builder()
+                    .id(product.getId())
+                    .imageName(product.getImageName())
+                    .imagePath(product.getImagePath())
                     .build();
         }
     }

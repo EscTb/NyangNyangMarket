@@ -4,8 +4,9 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+
 @Repository
-public class ProductRepositoryCustomImpl implements ProductRepositoryCustom{
+public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     public ProductRepositoryCustomImpl(EntityManager em) {

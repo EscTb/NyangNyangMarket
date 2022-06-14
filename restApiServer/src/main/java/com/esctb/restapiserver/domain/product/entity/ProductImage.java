@@ -1,10 +1,11 @@
 package com.esctb.restapiserver.domain.product.entity;
 
 import com.esctb.restapiserver.domain.model.BaseTimeEntity;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
+@Getter
 @NoArgsConstructor
 @Entity
 public class ProductImage extends BaseTimeEntity {
@@ -13,7 +14,7 @@ public class ProductImage extends BaseTimeEntity {
     @Column(name = "product_image_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
 
