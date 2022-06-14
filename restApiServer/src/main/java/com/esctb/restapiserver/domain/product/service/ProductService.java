@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.esctb.restapiserver.domain.product.dto.ProductDtoTest.*;
+import static com.esctb.restapiserver.domain.product.dto.ProductDto.*;
 import static com.esctb.restapiserver.global.error.ErrorCode.PRODUCT_NOT_FOUND;
 
 @Slf4j
@@ -45,7 +45,7 @@ public class ProductService {
         }
     }
 
-    public CreateResponse addProduct(ProductDtoTest.CreateRequest request) {
+    public CreateResponse addProduct(ProductDto.CreateRequest request) {
         Product newProduct = request.toEntity(request);
         Product product = productRepository.save(newProduct);
         CreateResponse response = CreateResponse.builder().build().toEntity(product);

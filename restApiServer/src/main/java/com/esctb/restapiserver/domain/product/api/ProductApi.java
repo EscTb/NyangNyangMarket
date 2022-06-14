@@ -1,9 +1,9 @@
 package com.esctb.restapiserver.domain.product.api;
 
-import com.esctb.restapiserver.domain.product.dto.*;
 import com.esctb.restapiserver.domain.product.service.ProductService;
 import com.esctb.restapiserver.global.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-import static com.esctb.restapiserver.domain.product.dto.ProductDtoTest.*;
-
+import static com.esctb.restapiserver.domain.product.dto.ProductDto.*;
+@Slf4j
 @ResponseBody
 @RequiredArgsConstructor
 @Controller
@@ -26,7 +26,8 @@ public class ProductApi {
      */
     @PostMapping("products")
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<CreateResponse> createProduct2(@RequestBody @Valid CreateRequest request) {
+    public ApiResponse<CreateResponse> createProduct(@RequestBody @Valid CreateRequest request) {
+        log.info("request.getProductImages()={}",request.getProductImages().get(0).getImageName());
         CreateResponse response = productService.addProduct(request);
         return ApiResponse.createSuccess(response);
     }
