@@ -1,19 +1,28 @@
 package com.esctb.restapiserver.domain.user.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.esctb.restapiserver.domain.user.entity.Address;
+import com.esctb.restapiserver.domain.user.entity.User;
+import com.esctb.restapiserver.domain.user.entity.enums.SuedYn;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
-@Builder
+@Getter
 @AllArgsConstructor
-@Data
 public class UserDto {
-    private String userId;
     private String name;
+    private String password;
     private String email;
-    private String address;
+    private Address address;
+    private String nickname;
+    private int temperature;
+    private SuedYn suedYn;
+
+    public User toEntity(){
+        return User.builder()
+                .name(name)
+                .email(email)
+                .build();
+    }
 }

@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class joinUserRequestDto {
 
     private String name;
+    private String password;
     private String email;
     private Address address;
     private String nickname;
@@ -33,6 +34,7 @@ public class joinUserRequestDto {
     public User toEntity(){
         return User.builder()
                 .name(name)
+                .password(password)
                 .email(email)
                 .address(address)
                 .nickname(nickname)
