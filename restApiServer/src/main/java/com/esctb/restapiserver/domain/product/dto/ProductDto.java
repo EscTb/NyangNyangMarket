@@ -22,7 +22,6 @@ public class ProductDto {
     @Builder
     @AllArgsConstructor
     @Getter
-    //@Data
     public static class Detail {
         private Long id;
         private String title;
@@ -34,26 +33,24 @@ public class ProductDto {
         private ProductStatus status;
         private List<ProductImage> productImages = new ArrayList<>();
 
-        public Detail toDto(Product product) {
+        public Detail toDto(Product entity) {
             return Detail.builder()
-                    .id(product.getId())
-                    .price(product.getPrice())
-                    .content(product.getContent())
-                    .interestCount(product.getInterestCount())
-                    .status(product.getStatus())
-                    .title(product.getTitle())
-                    .viewCount(product.getViewCount())
-                    .productImages(product.getProductImages())
+                    .id(entity.getId())
+                    .price(entity.getPrice())
+                    .content(entity.getContent())
+                    .interestCount(entity.getInterestCount())
+                    .status(entity.getStatus())
+                    .title(entity.getTitle())
+                    .viewCount(entity.getViewCount())
+                    .productImages(entity.getProductImages())
                     .build();
         }
-
     }
 
     @NoArgsConstructor
     @Builder
     @AllArgsConstructor
     @Getter
-    //@Data
     public static class UpdateRequest {
         @NotNull
         private String title;
@@ -100,13 +97,13 @@ public class ProductDto {
         @NotNull
         private List<ProductImage> productImages = new ArrayList<>();
 
-        public static Product toEntity(CreateRequest request) {
+        public static Product toEntity(CreateRequest dto) {
             return Product.builder()
-                    .price(request.getPrice())
-                    .title(request.getTitle())
-                    .content(request.getContent())
+                    .price(dto.getPrice())
+                    .title(dto.getTitle())
+                    .content(dto.getContent())
                     .interestCount(0)
-                    .productImages(request.getProductImages())
+                    .productImages(dto.getProductImages())
                     .viewCount(0)
                     .refreshDate(LocalDateTime.now())
                     .status(ProductStatus.SALE)
@@ -130,22 +127,22 @@ public class ProductDto {
         private ProductStatus status;
         private List<ProductImageDto> productImages = new ArrayList<>();
 
-        public static CreateResponse toEntity(Product product) {
+        public static CreateResponse toEntity(Product dto) {
 
-            List<ProductImageDto> productImages = product.getProductImages()
+            List<ProductImageDto> productImages = dto.getProductImages()
                     .stream()
-                    .map(productImage -> ProductImageDto.builder().build().toEntity(productImage))
+                    .map(productImage -> ProductImageDto.builder().build().toDto(productImage))
                     .collect(Collectors.toList());
 
             return CreateResponse.builder()
-                    .id(product.getId())
-                    .price(product.getPrice())
-                    .content(product.getContent())
-                    .interestCount(product.getInterestCount())
-                    .status(product.getStatus())
-                    .title(product.getTitle())
+                    .id(dto.getId())
+                    .price(dto.getPrice())
+                    .content(dto.getContent())
+                    .interestCount(dto.getInterestCount())
+                    .status(dto.getStatus())
+                    .title(dto.getTitle())
                     .productImages(productImages)
-                    .viewCount(product.getViewCount())
+                    .viewCount(dto.getViewCount())
                     .build();
         }
     }
@@ -160,11 +157,11 @@ public class ProductDto {
         private String imageName;
         private String imagePath;
 
-        public static ProductImageDto toEntity(ProductImage product) {
+        public static ProductImageDto toDto(ProductImage entity) {
             return ProductImageDto.builder()
-                    .id(product.getId())
-                    .imageName(product.getImageName())
-                    .imagePath(product.getImagePath())
+                    .id(entity.getId())
+                    .imageName(entity.getImageName())
+                    .imagePath(entity.getImagePath())
                     .build();
         }
     }
