@@ -9,4 +9,5 @@ public interface ReservationService {
     ReservationDto.ReservationResponse getReservation(Long id);
     ReservationDto.ReservationResponse getReservationByProductId(Long productId);
     ReservationDto.ReservationResponse saveReservation(ReservationDto.ReservationCreateRequest request);
+    ReservationDto.ReservationResponse deleteReservation(Long id);
 }
