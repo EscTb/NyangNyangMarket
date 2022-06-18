@@ -1,12 +1,18 @@
 package com.esctb.restapiserver.domain.product.entity;
 
 import com.esctb.restapiserver.domain.model.BaseTimeEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Category extends BaseTimeEntity {
