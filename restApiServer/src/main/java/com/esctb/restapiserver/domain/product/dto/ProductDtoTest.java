@@ -39,7 +39,7 @@ public class ProductDtoTest {
                     .status(product.getStatus())
                     .title(product.getTitle())
                     .viewCount(product.getViewCount())
-                    .productImages(product.getProductImages())
+                    //.productImages(product.getProductImages())
                     .build();
         }
 

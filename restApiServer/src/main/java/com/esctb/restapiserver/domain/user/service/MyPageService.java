@@ -1,10 +1,10 @@
 package com.esctb.restapiserver.domain.user.service;
 
-import com.esctb.restapiserver.domain.product.dto.ProductDto;
+import static com.esctb.restapiserver.domain.product.dto.ProductDtoTest.*;
 
 import java.util.List;
 
 public interface MyPageService {
-    List<ProductDto> getMyPurchaseHistory(String userId);
-    List<ProductDto> getMySalesHistory(String userId);
+    List<Detail> getMyPurchaseHistory(String userId);
+    List<Detail> getMySalesHistory(String userId);
 }
