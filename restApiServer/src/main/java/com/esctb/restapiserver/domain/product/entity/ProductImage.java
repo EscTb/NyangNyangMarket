@@ -1,12 +1,17 @@
 package com.esctb.restapiserver.domain.product.entity;
 
 import com.esctb.restapiserver.domain.model.BaseTimeEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+@Builder
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class ProductImage extends BaseTimeEntity {
     @Id

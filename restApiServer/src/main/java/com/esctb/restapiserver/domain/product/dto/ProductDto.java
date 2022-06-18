@@ -38,11 +38,11 @@ public class ProductDto {
                     .id(entity.getId())
                     .price(entity.getPrice())
                     .content(entity.getContent())
-                    .interestCount(entity.getInterestCount())
                     .status(entity.getStatus())
                     .title(entity.getTitle())
                     .viewCount(entity.getViewCount())
                     .productImages(entity.getProductImages())
+//                    .interestCount(entity.getInterestProducts().size())
                     .build();
         }
     }
@@ -61,8 +61,8 @@ public class ProductDto {
         private LocalDateTime refreshDate;
         @NotNull
         private int viewCount;
-        @NotNull
-        private int interestCount;
+//        @NotNull
+//        private int interestCount;
 
         @Convert(converter = ProductStatusConverter.class)
         @NotNull
@@ -73,7 +73,6 @@ public class ProductDto {
                     .id(productId)
                     .price(dto.getPrice())
                     .title(dto.getTitle())
-                    .interestCount(dto.getInterestCount())
                     .content(dto.getContent())
                     .status(dto.getStatus())
                     .viewCount(dto.getViewCount())
@@ -94,7 +93,6 @@ public class ProductDto {
         //private String areaId;
         @NotNull
         private String content;
-        @NotNull
         private List<ProductImage> productImages = new ArrayList<>();
 
         public static Product toEntity(CreateRequest dto) {
@@ -102,7 +100,6 @@ public class ProductDto {
                     .price(dto.getPrice())
                     .title(dto.getTitle())
                     .content(dto.getContent())
-                    .interestCount(0)
                     .productImages(dto.getProductImages())
                     .viewCount(0)
                     .refreshDate(LocalDateTime.now())
@@ -127,22 +124,22 @@ public class ProductDto {
         private ProductStatus status;
         private List<ProductImageDto> productImages = new ArrayList<>();
 
-        public static CreateResponse toEntity(Product dto) {
+        public static CreateResponse toDto(Product entity) {
 
-            List<ProductImageDto> productImages = dto.getProductImages()
+            List<ProductImageDto> productImages = entity.getProductImages()
                     .stream()
                     .map(productImage -> ProductImageDto.builder().build().toDto(productImage))
                     .collect(Collectors.toList());
 
             return CreateResponse.builder()
-                    .id(dto.getId())
-                    .price(dto.getPrice())
-                    .content(dto.getContent())
-                    .interestCount(dto.getInterestCount())
-                    .status(dto.getStatus())
-                    .title(dto.getTitle())
+                    .id(entity.getId())
+                    .price(entity.getPrice())
+                    .interestCount(0)
+                    .content(entity.getContent())
+                    .status(entity.getStatus())
+                    .title(entity.getTitle())
                     .productImages(productImages)
-                    .viewCount(dto.getViewCount())
+                    .viewCount(entity.getViewCount())
                     .build();
         }
     }
