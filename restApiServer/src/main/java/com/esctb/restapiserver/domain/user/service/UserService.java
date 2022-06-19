@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface UserService {
 
     Long join(joinUserRequestDto requestUserDto);
-    UserDto getMemberLoginCheck(LoginDto loginDto);
+    User getMemberLoginCheck(LoginDto loginDto);
 }

@@ -26,8 +26,8 @@ public class UserApi {
 
     //로그인
     @PostMapping("/login")
-    public ApiResponse<UserDto> login(@RequestBody LoginDto loginDto){
-        UserDto response = userService.getMemberLoginCheck(loginDto);
+    public ApiResponse<User> login(@RequestBody LoginDto loginDto){
+        User response = userService.getMemberLoginCheck(loginDto);
         return ApiResponse.createSuccess(response);
     }
 }

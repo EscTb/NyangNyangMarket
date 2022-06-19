@@ -30,19 +30,13 @@ public class UserServiceImpl implements UserService{
     }
 
     //로그인
-    public UserDto getMemberLoginCheck(LoginDto loginDto){
-        /*Optional<UserDto> result = userRepository.findByEmailAndPassword(loginDto.getEmail(), loginDto.getPassword());
+    public User getMemberLoginCheck(LoginDto loginDto){
 
-        ModelMapper mapper = new ModelMapper();
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        Optional<User> result = userRepository.findByEmailAndPassword(loginDto.getEmail(), loginDto.getPassword());
+        User user = result.get();
 
-        UserDto userDto = mapper.map(result, UserDto.class);*/
-        Optional<UserDto> result = userRepository.findByEmailAndPassword(loginDto.getEmail(), loginDto.getPassword());
-        UserDto userDto = result.get();
-        System.out.println("userDto.getName() = " + userDto.getName());
-
-        if(userDto!=null)
-            return userDto;
+        if(user!=null)
+            return user;
         else
             throw new CustomException(MEMBER_NOT_FOUND);
     }
