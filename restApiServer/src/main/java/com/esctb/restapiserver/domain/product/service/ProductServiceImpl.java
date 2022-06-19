@@ -8,6 +8,8 @@ import com.esctb.restapiserver.domain.product.entity.InterestProduct;
 import com.esctb.restapiserver.domain.product.entity.Product;
 import com.esctb.restapiserver.domain.product.repository.InterestProductRepository;
 import com.esctb.restapiserver.domain.product.repository.ProductRepository;
+import com.esctb.restapiserver.domain.user.entity.User;
+import com.esctb.restapiserver.domain.user.repository.UserRepository;
 import com.esctb.restapiserver.global.error.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,16 +19,20 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.esctb.restapiserver.domain.product.entity.InterestProduct.createInterestProduct;
 import static com.esctb.restapiserver.global.error.ErrorCode.PRODUCT_NOT_FOUND;
+import static com.esctb.restapiserver.global.error.ErrorCode.USER_NOT_FOUND;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
 
     private final ProductRepository productRepository;
     private final InterestProductRepository interestProductRepository;
+    private final UserRepository userRepository;
+
     public List<Detail> findAllProducts() {
         List<Product> productList = productRepository.findAll();
         return productList.stream()
@@ -39,13 +45,9 @@ public class ProductServiceImpl implements ProductService{
     }
 
     public Detail findDetailProductByProductId(Long productId) {
-        Optional<Product> p = productRepository.findById(productId);
-        if (p.isPresent()) {
-            Product product = p.get();
-            return Detail.builder().build().toDto(product);
-        } else {
-            throw new CustomException(PRODUCT_NOT_FOUND);
-        }
+        Product product = productRepository.findById(productId).orElseThrow(() -> new CustomException(PRODUCT_NOT_FOUND));
+        return Detail.builder().build().toDto(product);
+
     }
 
     public ProductDto.CreateResponse addProduct(CreateRequest request) {
@@ -55,20 +57,17 @@ public class ProductServiceImpl implements ProductService{
     }
 
     public void deleteProduct(Long productId) {
-        Optional<Product> byProductId = this.findByProductId(productId);
-        byProductId.ifPresent(productRepository::delete);
-        byProductId.orElseThrow(() -> new CustomException(PRODUCT_NOT_FOUND));
+        Product product = this.findByProductId(productId)
+                .orElseThrow(() -> new CustomException(PRODUCT_NOT_FOUND));
+        productRepository.delete(product);
     }
 
     public Detail updateProduct(Long productId, ProductDto.UpdateRequest request) {
-        Optional<Product> productById = productRepository.findById(productId);
-        if (productById.isPresent()) {
-            Product newProduct = ProductDto.UpdateRequest.toEntity(productId, request);
-            Product saved = productRepository.save(newProduct);
-            return Detail.builder().build().toDto(saved);
-        } else {
-            throw new CustomException(PRODUCT_NOT_FOUND);
-        }
+//        Product productById = productRepository.findById(productId).orElseThrow(() -> new CustomException(PRODUCT_NOT_FOUND));
+        Product newProduct = ProductDto.UpdateRequest.toEntity(productId, request);
+        Product saved = productRepository.save(newProduct);
+        return Detail.builder().build().toDto(saved);
+
     }
 
     public List<Detail> findProductsByCategoryId(Long categoryId) {
@@ -79,13 +78,13 @@ public class ProductServiceImpl implements ProductService{
     }
 
     public InterestProductDto.CreateResponse addInterestProduct(Long productId, Long userId) {
-        Optional<Product> product = productRepository.findById(productId);
-        if (product.isPresent()) {
-            InterestProduct interestProduct = InterestProduct.createInterestProduct(userId, product.get());
-            InterestProduct saved = interestProductRepository.save(interestProduct);
-            return InterestProductDto.CreateResponse.builder().build().toDto(saved);
-        } else {
-            throw new CustomException(PRODUCT_NOT_FOUND);
-        }
+        Product product = productRepository.findById(productId).orElseThrow(() -> new CustomException(PRODUCT_NOT_FOUND));
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(USER_NOT_FOUND));
+        InterestProduct interestProduct = createInterestProduct(userId, product);
+        InterestProduct saved = interestProductRepository.save(interestProduct);
+        productRepository.save(product);
+        userRepository.save(user);
+        return InterestProductDto.CreateResponse.builder().build().toDto(saved);
+
     }
 }
