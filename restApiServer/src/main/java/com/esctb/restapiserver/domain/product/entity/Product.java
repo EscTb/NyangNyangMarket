@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,21 +27,29 @@ public class Product extends BaseTimeEntity {
 
     // TODO 추후 개발 완료 되면 연관관계 설정
     //private String userId;
-    //private String categoryId;
+
     //private String areaId;
     private String title;
     private int price;
-    //private String areaId;
     private String content;
     private LocalDateTime refreshDate;
     private int viewCount;
-    private int interestCount;
+//    private int interestCount;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @Convert(converter = ProductStatusConverter.class)
     private ProductStatus status;
-    @OneToMany(mappedBy = "product")
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductImage> productImages = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<InterestProduct> interestProducts = new ArrayList<>();
+
 //    public static Product createProduct(List<ProductImage> productImages) {
 //        Product product = Product.builder()
 //                .id()
@@ -53,4 +62,10 @@ public class Product extends BaseTimeEntity {
 //        product.setOrderDate(LocalDateTime.now());
 //        return product;
 //    }
+
+    public InterestProduct addInterestProduct(Long userId) {
+        InterestProduct interestProduct = InterestProduct.createInterestProduct(userId, this);
+        this.interestProducts.add(interestProduct);
+        return interestProduct;
+    }
 }

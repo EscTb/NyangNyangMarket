@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface ProductImageRepository extends JpaRepository<ProductImage, Long> {
-    Optional<ProductImage> findById(Long productId);
+    Optional<ProductImage> findById(Long productImageId);
 }
