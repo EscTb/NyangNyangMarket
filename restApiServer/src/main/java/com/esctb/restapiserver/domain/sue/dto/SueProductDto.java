@@ -29,4 +29,12 @@ public class SueProductDto {
                     .build();
         }
     }
+
+    @NoArgsConstructor
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    public static class SueProductDeleteSuccessResponse{
+        private String message="Success";
+    }
 }

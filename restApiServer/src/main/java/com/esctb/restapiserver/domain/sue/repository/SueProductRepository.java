@@ -8,4 +8,7 @@ import java.util.Optional;
 
 public interface SueProductRepository extends JpaRepository<SueProduct, Long> {
     Optional<List<SueProduct>> findAllByProductId(Long productId);
+    Optional<List<SueProduct>> findAllByUserId(Long userId);
+    void deleteAllByProductId(Long productId);
+    void deleteAllByUserId(Long userId);
 }

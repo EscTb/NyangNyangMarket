@@ -37,4 +37,32 @@ public class SueProductServiceImpl implements SueProductService{
                 )
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<SueProductDto.SueProductResponse> getSueproductListByUserId(Long userId) {
+        return sueProductRepository.findAllByUserId(userId)
+                .orElseThrow(()->new CustomException(ErrorCode.SUE_PRODUCT_NOT_FOUND))
+                .stream()
+                .map(sueProduct ->
+                        SueProductDto.SueProductResponse
+                                .builder()
+                                .build()
+                                .toResponse(sueProduct)
+                )
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public SueProductDto.SueProductDeleteSuccessResponse deleteAllSueProductByProductId(Long productId) {
+        sueProductRepository.findAllByProductId(productId).orElseThrow(()->new CustomException(ErrorCode.SUE_PRODUCT_NOT_FOUND));
+        sueProductRepository.deleteAllByProductId(productId);
+        return SueProductDto.SueProductDeleteSuccessResponse.builder().build();
+    }
+
+    @Override
+    public SueProductDto.SueProductDeleteSuccessResponse deleteAllSueProductByUserId(Long userId) {
+        sueProductRepository.findAllByUserId(userId).orElseThrow(()->new CustomException(ErrorCode.SUE_PRODUCT_NOT_FOUND));
+        sueProductRepository.deleteAllByUserId(userId);
+        return SueProductDto.SueProductDeleteSuccessResponse.builder().build();
+    }
 }
