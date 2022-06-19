@@ -2,6 +2,7 @@ package com.esctb.restapiserver.domain.nyang.entitiy;
 
 import com.esctb.restapiserver.domain.model.Gender;
 import com.esctb.restapiserver.domain.model.GenderConverter;
+import com.esctb.restapiserver.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,4 +33,5 @@ public class Nyang {
     private Integer snackAmount;
     private LocalDateTime birthDate;
     private String address;
+
 }
