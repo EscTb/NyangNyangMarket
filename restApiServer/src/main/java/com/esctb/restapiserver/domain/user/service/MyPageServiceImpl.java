@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.esctb.restapiserver.domain.product.dto.ProductDtoTest.*;
+import static com.esctb.restapiserver.domain.product.dto.ProductDto.*;
 
 @Service
 @RequiredArgsConstructor
@@ -53,5 +53,6 @@ public class MyPageServiceImpl implements MyPageService{
         }
 
         return productDetailList;
+
     }
 }

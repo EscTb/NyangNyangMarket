@@ -1,14 +1,11 @@
 package com.esctb.restapiserver.domain.user.controller;
 
-import com.esctb.restapiserver.domain.product.dto.ProductDtoTest;
-import com.esctb.restapiserver.domain.product.service.ProductService;
-import com.esctb.restapiserver.domain.user.repository.PurchaseHistoryRepository;
 import com.esctb.restapiserver.domain.user.service.MyPageService;
 import com.esctb.restapiserver.global.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import static com.esctb.restapiserver.domain.product.dto.ProductDtoTest.*;
+import static com.esctb.restapiserver.domain.product.dto.ProductDto.*;
 
 import java.util.List;
 
