@@ -1,14 +1,16 @@
 package com.esctb.restapiserver.domain.product.api;
 
-import com.esctb.restapiserver.domain.product.dto.CategoryDto.Detail;
+import com.esctb.restapiserver.domain.product.dto.CategoryDto.Response;
 import com.esctb.restapiserver.domain.product.entity.Category;
-import com.esctb.restapiserver.domain.product.repository.CategoryRepository;
+import com.esctb.restapiserver.domain.product.service.CategoryService;
 import com.esctb.restapiserver.global.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Slf4j
@@ -18,18 +20,25 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/v1.0/category")
 public class CategoryApi {
 
-    private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
 
     /**
      * 카테고리 등록
      */
     @PostMapping("{name}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<Detail> createCategory(@PathVariable String name) {
+    public ApiResponse<Response> createCategory(@PathVariable String name) {
         Category build = Category.builder().name(name).build();
+        Response result = categoryService.save(build);
+        return ApiResponse.createSuccess(result);
+    }
 
-        Category response = categoryRepository.save(build);
-        Detail detail = Detail.builder().build().toDto(response);
-        return ApiResponse.createSuccess(detail);
+    /**
+     * 모든 카테고리 조회
+     */
+    @GetMapping
+    public ApiResponse<List<Response>> readCategories() {
+        List<Response> result = categoryService.findAllCategories();
+        return ApiResponse.createSuccess(result);
     }
 }

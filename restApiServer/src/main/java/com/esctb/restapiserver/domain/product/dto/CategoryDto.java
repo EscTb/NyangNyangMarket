@@ -11,11 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDto {
-
-    @NoArgsConstructor
-    @Builder
-    @AllArgsConstructor
     @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Detail {
         private Long id;
         private String name;
@@ -23,6 +22,22 @@ public class CategoryDto {
 
         public CategoryDto.Detail toDto(Category entity) {
             return CategoryDto.Detail.builder()
+                    .id(entity.getId())
+                    .name(entity.getName())
+                    .build();
+        }
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Response {
+        private Long id;
+        private String name;
+
+        public CategoryDto.Response toDto(Category entity) {
+            return CategoryDto.Response.builder()
                     .id(entity.getId())
                     .name(entity.getName())
                     .build();
