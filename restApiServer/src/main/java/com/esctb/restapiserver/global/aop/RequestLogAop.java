@@ -40,11 +40,10 @@ public class RequestLogAop {
             throw throwable;
         }finally {
             log.info(
-                    "{} {} from {} {}",
+                    "/ᐠ｡ꞈ｡ᐟ✿\\ {} {} from {} /ᐠ｡‸｡ᐟ\\",
                     request.getMethod(),
                     request.getRequestURI(),
-                    request.getRemoteAddr(),
-                    request.getHeader("user-id"));
+                    request.getRemoteAddr());
         }
         return value;
     }

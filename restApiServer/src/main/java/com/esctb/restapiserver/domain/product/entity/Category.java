@@ -1,12 +1,18 @@
 package com.esctb.restapiserver.domain.product.entity;
 
 import com.esctb.restapiserver.domain.model.BaseTimeEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Category extends BaseTimeEntity {
@@ -15,4 +21,7 @@ public class Category extends BaseTimeEntity {
     @Column(name = "category_id")
     private Long id;
     private String name; // 카테고리명
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<Product> productList = new ArrayList<>();
 }
