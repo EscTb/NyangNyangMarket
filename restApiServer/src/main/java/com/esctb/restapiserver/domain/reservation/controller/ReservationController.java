@@ -19,11 +19,7 @@ public class ReservationController {
 
     @GetMapping("/{id}")
     public ApiResponse getReservation(@PathVariable Long id){
-        try{
-            return ApiResponse.createSuccess(reservationService.getReservation(id));
-        }catch (CustomException e){
-            return ApiResponse.createError(e.getErrorCode());
-        }
+        return ApiResponse.createSuccess(reservationService.getReservation(id));
     }
 
     @GetMapping("products/{product_id}")
