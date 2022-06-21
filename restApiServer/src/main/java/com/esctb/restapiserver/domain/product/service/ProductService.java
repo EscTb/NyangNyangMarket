@@ -2,6 +2,7 @@ package com.esctb.restapiserver.domain.product.service;
 
 import com.esctb.restapiserver.domain.product.dto.InterestProductDto;
 import com.esctb.restapiserver.domain.product.dto.ProductDto;
+import com.esctb.restapiserver.domain.product.dto.ProductDto.CreateRequest;
 import com.esctb.restapiserver.domain.product.dto.ProductDto.CreateResponse;
 import com.esctb.restapiserver.domain.product.dto.ProductDto.Detail;
 
@@ -14,7 +15,7 @@ public interface ProductService {
 
     Detail findDetailProductByProductId(Long productId);
 
-    CreateResponse addProduct(ProductDto.CreateRequest request);
+    CreateResponse addProduct(CreateRequest request);
 
     void deleteProduct(Long productId);
 

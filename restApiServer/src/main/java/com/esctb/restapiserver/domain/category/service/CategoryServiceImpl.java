@@ -1,9 +1,9 @@
-package com.esctb.restapiserver.domain.product.service;
+package com.esctb.restapiserver.domain.category.service;
 
-import com.esctb.restapiserver.domain.product.dto.CategoryDto;
-import com.esctb.restapiserver.domain.product.dto.CategoryDto.Response;
-import com.esctb.restapiserver.domain.product.entity.Category;
-import com.esctb.restapiserver.domain.product.repository.CategoryRepository;
+import com.esctb.restapiserver.domain.category.dto.CategoryDto;
+import com.esctb.restapiserver.domain.category.dto.CategoryDto.Response;
+import com.esctb.restapiserver.domain.category.entity.Category;
+import com.esctb.restapiserver.domain.category.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

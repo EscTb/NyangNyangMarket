@@ -93,6 +93,7 @@ public class ProductDto {
         //private String areaId;
         @NotNull
         private String content;
+
         private List<ProductImage> productImages = new ArrayList<>();
 
         public static Product toEntity(CreateRequest dto) {

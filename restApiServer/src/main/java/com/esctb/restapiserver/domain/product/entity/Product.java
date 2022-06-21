@@ -1,5 +1,6 @@
 package com.esctb.restapiserver.domain.product.entity;
 
+import com.esctb.restapiserver.domain.category.entity.Category;
 import com.esctb.restapiserver.domain.model.BaseTimeEntity;
 import com.esctb.restapiserver.domain.model.ProductStatus;
 import com.esctb.restapiserver.domain.model.ProductStatusConverter;

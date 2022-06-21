@@ -1,6 +1,6 @@
-package com.esctb.restapiserver.domain.product.dto;
+package com.esctb.restapiserver.domain.category.dto;
 
-import com.esctb.restapiserver.domain.product.entity.Category;
+import com.esctb.restapiserver.domain.category.entity.Category;
 import com.esctb.restapiserver.domain.product.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,6 +1,7 @@
-package com.esctb.restapiserver.domain.product.entity;
+package com.esctb.restapiserver.domain.category.entity;
 
 import com.esctb.restapiserver.domain.model.BaseTimeEntity;
+import com.esctb.restapiserver.domain.product.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

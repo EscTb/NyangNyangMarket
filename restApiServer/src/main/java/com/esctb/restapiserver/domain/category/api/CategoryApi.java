@@ -1,8 +1,7 @@
-package com.esctb.restapiserver.domain.product.api;
+package com.esctb.restapiserver.domain.category.api;
 
-import com.esctb.restapiserver.domain.product.dto.CategoryDto.Response;
-import com.esctb.restapiserver.domain.product.entity.Category;
-import com.esctb.restapiserver.domain.product.service.CategoryService;
+import com.esctb.restapiserver.domain.category.dto.CategoryDto.Response;
+import com.esctb.restapiserver.domain.category.service.CategoryService;
 import com.esctb.restapiserver.global.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
