@@ -21,6 +21,6 @@ public class SalesHistory {
     @Column(name = "product_id")
     private Long productId;
 
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "user_email")
+    private String userEmail;
 }

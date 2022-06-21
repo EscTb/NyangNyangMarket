@@ -1,14 +1,29 @@
 package com.esctb.restapiserver.domain.user.controller;
 
-import com.esctb.restapiserver.domain.user.repository.PurchaseHistoryRepository;
+import com.esctb.restapiserver.domain.user.service.MyPageService;
+import com.esctb.restapiserver.global.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static com.esctb.restapiserver.domain.product.dto.ProductDto.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/v1.0")
+@RequestMapping("/api/v1.0")
 @RequiredArgsConstructor
 public class MyPageApi {
+    private final MyPageService myPageService;
+
+    @GetMapping("/purchases/{userEmail}")
+    public ApiResponse<List<Detail>> getMyPurchasedProducts(@PathVariable String userEmail) {
+        List<Detail> productList = myPageService.getMyPurchaseHistory(userEmail);
+        return ApiResponse.createSuccess(productList);
+    }
+
+    @GetMapping("/sales/{userEmail}")
+    public ApiResponse<List<Detail>> getMySoldProducts(@PathVariable String userEmail) {
+        List<Detail> productList = myPageService.getMySalesHistory(userEmail);
+        return ApiResponse.createSuccess(productList);
+    }
 }

@@ -11,5 +11,5 @@ public interface CategoryService {
 
     List<Response> findAllCategories();
 
-    Response save(Category build);
+    Response save(String name);
 }

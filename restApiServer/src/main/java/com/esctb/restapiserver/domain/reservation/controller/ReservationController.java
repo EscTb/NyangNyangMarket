@@ -8,7 +8,6 @@ import com.esctb.restapiserver.global.error.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 
 @RequiredArgsConstructor
 @RestController
@@ -19,11 +18,7 @@ public class ReservationController {
 
     @GetMapping("/{id}")
     public ApiResponse getReservation(@PathVariable Long id){
-        try{
-            return ApiResponse.createSuccess(reservationService.getReservation(id));
-        }catch (CustomException e){
-            return ApiResponse.createError(e.getErrorCode());
-        }
+        return ApiResponse.createSuccess(reservationService.getReservation(id));
     }
 
     @GetMapping("products/{product_id}")

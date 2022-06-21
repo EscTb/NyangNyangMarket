@@ -28,8 +28,7 @@ public class CategoryApi {
     @PostMapping("{name}")
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse<Response> createCategory(@PathVariable String name) {
-        Category build = Category.builder().name(name).build();
-        Response result = categoryService.save(build);
+        Response result = categoryService.save(name);
         return ApiResponse.createSuccess(result);
     }
 
@@ -38,7 +37,6 @@ public class CategoryApi {
      */
     @GetMapping
     public ApiResponse<List<Response>> readCategories() {
-        List<Response> result = categoryService.findAllCategories();
-        return ApiResponse.createSuccess(result);
+        return ApiResponse.createSuccess(categoryService.findAllCategories());
     }
 }

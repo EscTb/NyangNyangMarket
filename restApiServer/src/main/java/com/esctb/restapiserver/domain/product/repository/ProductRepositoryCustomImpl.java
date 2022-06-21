@@ -23,7 +23,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         return queryFactory
                 .select(product)
                 .from(product)
-                .join(category, product.category)
+                .leftJoin(product.category,category)
                 .fetch();
     }
 }

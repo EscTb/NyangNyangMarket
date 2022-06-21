@@ -27,8 +27,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Response save(Category build) {
-        Category saved = categoryRepository.save(build);
+    public Response save(String name) {
+        Category saved = categoryRepository.save(Category.builder().name(name).build());
         return CategoryDto.Response.builder().build().toDto(saved);
     }
 }
