@@ -39,6 +39,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<ErrorResponse> handleCustomException(CustomException e, HttpServletRequest request) throws IOException {
         final ContentCachingRequestWrapper cachingRequestWrapper=(ContentCachingRequestWrapper) request;
         log.error("handleCustomException throw CustomException : {}", e.getErrorCode());
+
         StringBuilder sb=new StringBuilder();
         sb.append("===============================API REQUEST ERROR===============================\n")
           .append("Request Time: ").append(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ss"))).append("\n")
@@ -48,9 +49,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
           .append("QueryString: ").append(request.getQueryString()==null?"":request.getQueryString()).append("\n")
           .append("Request Body: ").append(objectMapper.readTree(cachingRequestWrapper.getContentAsByteArray())).append("\n");
 
-        System.out.println(sb);
+        log.error(sb.toString());
 
-        slackUtils.SendError(sb.toString());
+        slackUtils.SendError(e.getErrorCode(),request);
 
         return ErrorResponse.toResponseEntity(e.getErrorCode());
     }
