@@ -1,5 +1,7 @@
 package com.esctb.restapiserver.global.common;
 
+import com.esctb.restapiserver.global.error.ErrorCode;
+import com.esctb.restapiserver.global.error.ErrorResponse;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,8 +49,13 @@ public class ApiResponse<T> {
     }
 
     // 예외 발생으로 API 호출 실패시 반환
-    public static ApiResponse<?> createError(String message) {
-        return new ApiResponse<>(ERROR_STATUS, null, message);
+    public static ApiResponse<?> createError(ErrorCode errorCode) {
+        return new ApiResponse<>(ERROR_STATUS,ErrorResponse.builder()
+                .status(errorCode.getHttpStatus().value())
+                .error(errorCode.getHttpStatus().name())
+                .code(errorCode.name())
+                .message(errorCode.getDetail())
+                .build() , errorCode.getDetail());
     }
 
     private ApiResponse(String status, T data, String message) {
