@@ -4,6 +4,7 @@ import com.esctb.restapiserver.domain.category.entity.Category;
 import com.esctb.restapiserver.domain.model.BaseTimeEntity;
 import com.esctb.restapiserver.domain.model.ProductStatus;
 import com.esctb.restapiserver.domain.model.ProductStatusConverter;
+import com.esctb.restapiserver.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,16 +27,17 @@ public class Product extends BaseTimeEntity {
     @Column(name = "product_id")
     private Long id;
 
-    // TODO 추후 개발 완료 되면 연관관계 설정
-    //private String userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     //private String areaId;
+
     private String title;
     private int price;
     private String content;
     private LocalDateTime refreshDate;
     private int viewCount;
-//    private int interestCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -68,5 +70,11 @@ public class Product extends BaseTimeEntity {
         InterestProduct interestProduct = InterestProduct.createInterestProduct(userId, this);
         this.interestProducts.add(interestProduct);
         return interestProduct;
+    }
+    public Product addProductImage(ProductImage productImage) {
+
+        this.productImages.add(productImage);
+        productImage.setProduct(this);
+        return this;
     }
 }
