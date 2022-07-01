@@ -9,4 +9,5 @@ import java.util.List;
 public interface ProductRepositoryCustom {
     List<Product> findByCategoryId(Long categoryId);
 
+    List<Product> findAllProducts();
 }
