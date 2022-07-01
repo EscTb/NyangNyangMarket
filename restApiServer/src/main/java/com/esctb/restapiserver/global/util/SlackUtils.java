@@ -25,7 +25,7 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class SlackUtils {
-    //@Value("${webhook.url}")
+    @Value("${webhook.url}")
     private String url;
 
     private final ObjectMapper objectMapper;
