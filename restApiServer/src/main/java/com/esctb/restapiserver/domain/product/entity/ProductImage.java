@@ -25,4 +25,15 @@ public class ProductImage extends BaseTimeEntity {
 
     private String imageName; // 이미지명
     private String imagePath; // 이미지 경로
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public void addProduct(Product product) {
+        if (this.product!=null){
+            this.product = null;
+        }
+        this.product = product;
+    }
 }

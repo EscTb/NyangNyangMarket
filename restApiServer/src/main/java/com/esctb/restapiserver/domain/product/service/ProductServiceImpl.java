@@ -6,7 +6,9 @@ import com.esctb.restapiserver.domain.product.dto.ProductDto.CreateRequest;
 import com.esctb.restapiserver.domain.product.dto.ProductDto.Detail;
 import com.esctb.restapiserver.domain.product.entity.InterestProduct;
 import com.esctb.restapiserver.domain.product.entity.Product;
+import com.esctb.restapiserver.domain.product.entity.ProductImage;
 import com.esctb.restapiserver.domain.product.repository.InterestProductRepository;
+import com.esctb.restapiserver.domain.product.repository.ProductImageRepository;
 import com.esctb.restapiserver.domain.product.repository.ProductRepository;
 import com.esctb.restapiserver.domain.user.entity.User;
 import com.esctb.restapiserver.domain.user.repository.UserRepository;
@@ -30,11 +32,12 @@ public class ProductServiceImpl implements ProductService {
 
 
     private final ProductRepository productRepository;
+    private final ProductImageRepository productImageRepository;
     private final InterestProductRepository interestProductRepository;
     private final UserRepository userRepository;
 
     public List<Detail> findAllProducts() {
-        List<Product> productList = productRepository.findAll();
+        List<Product> productList = productRepository.findAllProducts();
         return productList.stream()
                 .map(p -> Detail.builder().build().toDto(p))
                 .collect(Collectors.toList());
@@ -52,6 +55,13 @@ public class ProductServiceImpl implements ProductService {
 
     public ProductDto.CreateResponse addProduct(CreateRequest request) {
         Product newProduct = request.toEntity(request);
+        List<ProductImage> productImages = request.getProductImages();
+
+        for (ProductImage productImage : productImages) {
+            productImageRepository.save(productImage);
+            productImage.addProduct(newProduct);
+            //newProduct.addProductImage(productImage);
+        }
         Product product = productRepository.save(newProduct);
         return ProductDto.CreateResponse.builder().build().toDto(product);
     }
